@@ -8,6 +8,8 @@ const next = document.querySelector("#controls #next");
 const duration = document.querySelector("#duration");
 const currTime = document.querySelector("#current-time");
 const progressBar = document.querySelector("#progress-bar");
+const volume = document.querySelector("#volume");
+const volumeBar = document.querySelector("#volume-bar");
 
 
 const player = new MusicPlayer(musicList);
@@ -17,8 +19,7 @@ const player = new MusicPlayer(musicList);
 window.addEventListener("load", () => {
     let music = player.getMusic();
     displayMusic(music);
-    console.log(music);
-})
+});
 
 
 function displayMusic (music){
@@ -32,7 +33,7 @@ function displayMusic (music){
 play.addEventListener("click", () => {
     const isPlaying = container.classList.contains("playing");
     isPlaying ? pauseMusic() : playMusic();
-})
+});
 
 
 next.addEventListener("click", () => { nextMusic(); })
@@ -85,16 +86,47 @@ const calculateTime = (totalSeconds) => {
 audio.addEventListener("loadedmetadata", () => {
     duration.textContent = calculateTime(audio.duration);
     progressBar.max = Math.floor(audio.duration);
-    console.log(Math.floor(audio.duration));
 });
 
 audio.addEventListener("timeupdate", () => {
     progressBar.value = Math.floor(audio.currentTime);
     currTime.textContent = calculateTime(progressBar.value);
-})
+});
 
 progressBar.addEventListener("input", () => {
     audio.currentTime = progressBar.value;
     currTime.textContent = calculateTime(progressBar.value);
+});
 
-})
+
+let volumeStatus = "high";
+let volumeValue = 100;
+
+volumeBar.addEventListener("input", (e) => {
+    volumeValue = e.target.value;
+    audio.volume = volumeValue / 100;
+    if (volumeValue == 0){
+        audio.muted = true;
+        volumeStatus = "muted";
+        volume.classList = "fa-solid fa-volume-xmark";
+    }
+    else{
+        audio.muted = false;
+        volumeStatus = "high";
+        volume.classList = "fa-solid fa-volume-high";
+    }
+});
+
+volume.addEventListener("click", () => {
+    if(volumeStatus === "high"){
+        audio.muted = true;
+        volumeStatus = "muted";
+        volume.classList = "fa-solid fa-volume-xmark";
+        volumeBar.value = 0;
+    }else{
+        audio.muted = false;
+        volumeStatus = "high";
+        volume.classList = "fa-solid fa-volume-high";
+        volumeBar.value = volumeValue;
+    }
+});
