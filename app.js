@@ -35,23 +35,19 @@ play.addEventListener("click", () => {
 })
 
 
-next.addEventListener("click", () => {
-    nextMusic();
-})
+next.addEventListener("click", () => { nextMusic(); })
 
 
-prev.addEventListener("click", () => {
-    prevMusic();
-})
+prev.addEventListener("click", () => { prevMusic(); })
 
-function nextMusic(){
+const nextMusic = () => {
     player.next();
     let music = player.getMusic();
     displayMusic(music);
     playMusic();
 }
 
-function prevMusic(){
+const prevMusic = () => {
     player.prev();
     let music = player.getMusic();
     displayMusic(music);
@@ -94,6 +90,11 @@ audio.addEventListener("loadedmetadata", () => {
 
 audio.addEventListener("timeupdate", () => {
     progressBar.value = Math.floor(audio.currentTime);
+    currTime.textContent = calculateTime(progressBar.value);
+})
+
+progressBar.addEventListener("input", () => {
+    audio.currentTime = progressBar.value;
     currTime.textContent = calculateTime(progressBar.value);
 
 })
