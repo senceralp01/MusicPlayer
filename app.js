@@ -62,7 +62,7 @@ const prevMusic = () => {
 // }
 const playMusic = () => {
     container.classList.add("playing");
-    play.classList = "fa-solid fa-pause";
+    play.querySelector("i").classList = "fa-solid fa-pause";
     audio.play();
 }
 
@@ -72,7 +72,7 @@ const playMusic = () => {
 // }
 const pauseMusic = () => {
     container.classList.remove("playing");
-    play.classList = "fa-solid fa-play";
+    play.querySelector("i").classList = "fa-solid fa-play";
     audio.pause();
 }
 
@@ -108,12 +108,12 @@ volumeBar.addEventListener("input", (e) => {
     if (volumeValue == 0){
         audio.muted = true;
         volumeStatus = "muted";
-        volume.classList = "fa-solid fa-volume-xmark";
+        volume.classList = "fa-solid fa-volume-xmark me-2";
     }
     else{
         audio.muted = false;
         volumeStatus = "high";
-        volume.classList = "fa-solid fa-volume-high";
+        volume.classList = "fa-solid fa-volume-high me-2";
     }
 });
 
@@ -121,12 +121,12 @@ volume.addEventListener("click", () => {
     if(volumeStatus === "high"){
         audio.muted = true;
         volumeStatus = "muted";
-        volume.classList = "fa-solid fa-volume-xmark";
+        volume.classList = "fa-solid fa-volume-xmark me-2";
         volumeBar.value = 0;
     }else{
         audio.muted = false;
         volumeStatus = "high";
-        volume.classList = "fa-solid fa-volume-high";
+        volume.classList = "fa-solid fa-volume-high me-2";
         volumeBar.value = volumeValue;
     }
 });
