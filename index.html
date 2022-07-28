@@ -40,13 +40,22 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary btn-sm">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#music-list">
                     <i class="fa-solid fa-bars"></i>
                 </button>
                 <div class="volume-container">
                     <i id="volume" class="fa-solid fa-volume-high me-2"></i>
                     <input type="range" id="volume-bar" max="100" value="100" class="form-range">
                 </div>
+            </div>
+            <div class="collapse" id="music-list">
+                <ul class="list-group list-group flush">
+                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>X</span>
+                        <span class="badge bg-primary rounded-pill">8:88</span>
+
+                    </li> -->
+                </ul>
             </div>
         </div>
     </div>

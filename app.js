@@ -10,6 +10,7 @@ const currTime = document.querySelector("#current-time");
 const progressBar = document.querySelector("#progress-bar");
 const volume = document.querySelector("#volume");
 const volumeBar = document.querySelector("#volume-bar");
+const listGroup = document.querySelector(".list-group");
 
 
 const player = new MusicPlayer(musicList);
@@ -19,6 +20,16 @@ const player = new MusicPlayer(musicList);
 window.addEventListener("load", () => {
     let music = player.getMusic();
     displayMusic(music);
+    let musicListItem = "";
+    for (let i = 0; i<musicList.length; i++){
+        musicListItem = player.getMusicList();
+        listGroup.innerHTML += `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>${musicListItem.getName()}</span>
+            <span class="badge bg-primary rounded-pill">${musicListItem.file}</span></li>
+        `
+    }
+ 
 });
 
 
