@@ -10,7 +10,7 @@ const currTime = document.querySelector("#current-time");
 const progressBar = document.querySelector("#progress-bar");
 const volume = document.querySelector("#volume");
 const volumeBar = document.querySelector("#volume-bar");
-const listGroup = document.querySelector(".list-group");
+const ul = document.querySelector("ul");
 
 
 const player = new MusicPlayer(musicList);
@@ -20,16 +20,7 @@ const player = new MusicPlayer(musicList);
 window.addEventListener("load", () => {
     let music = player.getMusic();
     displayMusic(music);
-    let musicListItem = "";
-    for (let i = 0; i<musicList.length; i++){
-        musicListItem = player.getMusicList();
-        listGroup.innerHTML += `
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>${musicListItem.getName()}</span>
-            <span class="badge bg-primary rounded-pill">${musicListItem.file}</span></li>
-        `
-    }
- 
+    displayMusicList(player.musicList);
 });
 
 
@@ -141,3 +132,26 @@ volume.addEventListener("click", () => {
         volumeBar.value = volumeValue;
     }
 });
+
+const displayMusicList = (list) => {
+
+    for (let i=0; i<list.length; i++){
+        let liTag = `
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>${list[i].getName()}</span>
+            <span id="music-${i}" class="badge bg-primary rounded-pill"></span>
+            <audio class="music-${i}" src="mp3/${list[i].file}"></audio>
+        `;
+        ul.insertAdjacentHTML("beforeend", liTag);
+        
+        let liAudioDuration = ul.querySelector(`#music-${i}`);
+        let liAudioFile = ul.querySelector(`.music-${i}`);
+
+        liAudioFile.addEventListener("loadeddata", () => {
+            liAudioDuration.innerText = calculateTime(liAudioFile.duration);
+        });
+
+
+    }
+
+}

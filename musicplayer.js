@@ -25,9 +25,4 @@ class MusicPlayer{
         }
     }
 
-    getMusicList(){
-        this.i++;
-        return this.musicList[this.i];
-    }
-
 }
